@@ -1,0 +1,308 @@
+; CIDER 0.8.1 (package: 20141120.1746) (Java 1.8.0_171, Clojure 1.8.0, nREPL 0.2.13)
+WARNING: The following required nREPL ops are not supported: 
+apropos classpath complete eldoc info inspect-start inspect-refresh inspect-pop inspect-push inspect-reset macroexpand ns-list ns-vars resource stacktrace toggle-trace-var toggle-trace-ns undef
+Please, install (or update) cider-nrepl 0.8.1 and restart CIDER
+WARNING: CIDER's version (0.8.1) does not match cider-nrepl's version (not installed)
+rooms.core> (slurp rooms.txt)
+CompilerException java.lang.ClassNotFoundException: rooms.txt, compiling:(/tmp/form-init8587648423529127912.clj:1:1) 
+rooms.core> (slurp "rooms.txt")
+"The Testing Room | This Room is an infinite blank white void. Near you in the void is a card table upon which sits a blank algebra test and two #2 pencils | The Dawn of Time\n"
+rooms.core> (len [0 1 2])
+CompilerException java.lang.RuntimeException: Unable to resolve symbol: len in this context, compiling:(/tmp/form-init8587648423529127912.clj:1:1) 
+rooms.core> (count [0 1 2])
+3
+rooms.core> (def lettermap {"a" "alpha" "b" "bravo"})
+#'rooms.core/lettermap
+rooms.core> (get lettermap "a")
+"alpha"
+rooms.core> (def letters ["a b c" "d e f" "g h i"])
+#'rooms.core/letters
+rooms.core> letters
+["a b c" "d e f" "g h i"]
+rooms.core> (mapv clojure.string/split letters [" " " " " "])
+ClassCastException java.lang.String cannot be cast to java.util.regex.Pattern  clojure.string/split (string.clj:219)
+rooms.core> (mapv clojure.string/split letters [' ' ' ' ' '])
+RuntimeException Unmatched delimiter: ]  clojure.lang.Util.runtimeException (Util.java:221)
+RuntimeException Unmatched delimiter: )  clojure.lang.Util.runtimeException (Util.java:221)
+rooms.core> (mapv clojure.string/split letters " ")
+ClassCastException java.lang.Character cannot be cast to java.util.regex.Pattern  clojure.string/split (string.clj:219)
+rooms.core> (clojure.string/split "a b c d" "c")
+ClassCastException java.lang.String cannot be cast to java.util.regex.Pattern  clojure.string/split (string.clj:219)
+rooms.core> (mapv clojure.string/split letters [#" " #" " #" "])
+[["a" "b" "c"] ["d" "e" "f"] ["g" "h" "i"]]
+rooms.core> (map clojure.string/split letters [#" " #" " #" "])
+(["a" "b" "c"] ["d" "e" "f"] ["g" "h" "i"])
+rooms.core> (exit_splitter ["a" "b" "c % d"])
+CompilerException java.lang.RuntimeException: Unable to resolve symbol: exit_splitter in this context, compiling:(/tmp/form-init8587648423529127912.clj:1:1) 
+rooms.core> (clojure.string/split "a b c d e" #" ")
+["a" "b" "c" "d" "e"]
+rooms.core> (defn exit-splitter [invec]
+  (let [exits (nth invec 2)]
+    clojure.string/split exits #" % "))
+#'rooms.core/exit-splitter
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms [#" | " #" | " #" | "] )]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        split_exits))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (slurp-rooms "rooms.txt")
+[#" % "]
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms [#" | " #" | " #" | "] )]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        raw_rooms))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (slurp-rooms "rooms.txt")
+["The Testing Room | This Room is an infinite blank white void. Near you in the void is a card table upon which sits a blank algebra test and two #2 pencils | The Dawn of Time"]
+rooms.core> (slurp-rooms "rooms.txt")
+["The Testing Room | This Room is an infinite blank white void. Near you in the void is a card table upon which sits a blank algebra test and two #2 pencils | The Dawn of Time"]
+rooms.core> (slurp rooms.txt)
+CompilerException java.lang.ClassNotFoundException: rooms.txt, compiling:(/tmp/form-init8587648423529127912.clj:1:1) 
+rooms.core> (slurp "rooms.txt")
+"The Testing Room | This Room is an infinite blank white void. Near you in the void is a card table upon which sits a blank algebra test and two #2 pencils | The Dawn of Time\n"
+rooms.core> (slurp "www.google.com")
+FileNotFoundException www.google.com (No such file or directory)  java.io.FileInputStream.open0 (FileInputStream.java:-2)
+rooms.core> (slurp "https://www.google.com")
+"<!doctype html><html itemscope=\"\" itemtype=\"http://schema.org/WebPage\" lang=\"en\"><head><meta content=\"Search the world's information, including webpages, images, videos and more. Google has many special features to help you find exactly what you're looking for.\" name=\"description\"><meta content=\"noodp\" name=\"robots\"><meta content=\"text/html; charset=UTF-8\" http-equiv=\"Content-Type\"><meta content=\"/images/branding/googleg/1x/googleg_standard_color_128dp.png\" itemprop=\"image\"><title>Google</title><script nonce=\"UdFhWT22ef1+qw+3/MarkA==\">(function(){window.google={kEI:'fC0oXJ-JIMXXjwSd67PoDQ',kEXPI:'0,18168,1335578,58,51,1906,1017,624,782,697,528,591,140,325,293,1180,30,524,27,677,593,301,547,5,2335612,235,32,68,329226,1294,12383,4855,32691,15248,867,10761,1402,6381,3335,2,2,4609,2192,364,3319,5505,224,2212,266,5107,575,835,284,2,579,727,2431,59,2,1,3,1297,4323,3390,8,302,1267,774,2115,135,1407,186,1227,1529,395,525,621,5,2,2,1963,528,2067,182,283,556,2282,201,97,669,1050,464,1344,386,743,268,81,7,1,2,25,463,620,29,983,6,406,470,1835,769,536,428,268,4290,313,694,98,84,412,2,554,1559,806,2,267,381,286,948,101,1119,38,363,557,573,145,155,497,2,718,1109,255,441,43,47,590,490,543,1826,367,57,1002,603,1092,598,77,265,217,923,2,1120,127,173,2,676,45,17,31,194,8,2,81,37,645,742,11,10,408,252,97,167,82,247,1158,369,716,8,22,1236,849,12,620,231,233,87,100,154,44,183,65,319,42,331,135,271,22,128,87,19,327,106,20,572,2,83,340,1235,641,5970777,2554,95,138,5997368,90,2800095,4,248,1324,549,332,445,1,2,80,1,900,583,9,304,1,8,1,2,2132,1,1,1,1,1,414,1,748,141,59,344,5,4,373,3,7,362,81,3,6,71,1,9,9,2,5,14,1,2,4,1,1,2,1,1,100,1,29,8,21,1,1,1,1,1,1,1,1,1,1,1,1,1,30,1,1,3,1,2,1,1,1,1,1,1,68,8,5,2,4,2,1,1,2,3,8,14,10,11,6,2,4,2,2,2,4,12,4,3,22306730',authuser:0,kscs:'c9c918f0_fC0oXJ-JIMXXjwSd67PoDQ',kGL:'US'};google.kHL='en';})();google.time=function(){return(new Date).getTime()};(function(){google.lc=[];google.li=0;google.getEI=function(a){for(var b;a&&(!a.getAttribute||!(b=a.getAttribute(\"eid\")));)a=a.parentNode;return b||google.kEI};google.getLEI=function(a){for(var b=null;a&&(!a.getAttribute||!(b=a.getAttribute(\"leid\")));)a=a.parentNode;return b};google.https=function(){return\"https:\"==window.location.protocol};google.ml=function(){return null};google.log=function(a,b,e,c,g){if(a=google.logUrl(a,b,e,c,g)){b=new Image;var d=google.lc,f=google.li;d[f]=b;b.onerror=b.onload=b.onabort=function(){delete d[f]};google.vel&&google.vel.lu&&google.vel.lu(a);b.src=a;google.li=f+1}};google.logUrl=function(a,b,e,c,g){var d=\"\",f=google.ls||\"\";e||-1!=b.search(\"&ei=\")||(d=\"&ei=\"+google.getEI(c),-1==b.search(\"&lei=\")&&(c=google.getLEI(c))&&(d+=\"&lei=\"+c));c=\"\";!e&&google.cshid&&-1==b.search(\"&cshid=\")&&\"slh\"!=a&&(c=\"&cshid=\"+google.cshid);a=e||\"/\"+(g||\"gen_204\")+\"?atyp=i&ct=\"+a+\"&cad=\"+b+d+f+\"&zx=\"+google.time()+c;/^http:/i.test(a)&&google.https()&&(google.ml(Error(\"a\"),!1,{src:a,glmm:1}),a=\"\");return a};}).call(this);(function(){google.y={};google.x=function(a,b){if(a)var c=a.id;else{do c=Math.random();while(google.y[c])}google.y[c]=[a,b];return!1};google.lm=[];google.plm=function(a){google.lm.push.apply(google.lm,a)};google.lq=[];google.load=function(a,b,c){google.lq.push([[a],b,c])};google.loadAll=function(a,b){google.lq.push([a,b])};}).call(this);google.f={};</script><script nonce=\"UdFhWT22ef1+qw+3/MarkA==\">var a=window.location,b=a.href.indexOf(\"#\");if(0<=b){var c=a.href.substring(b+1);/(^|&)q=/.test(c)&&-1==c.indexOf(\"#\")&&a.replace(\"/search?\"+c.replace(/(^|&)fp=[^&]*/g,\"\")+\"&cad=h\")};</script><style>#gbar,#guser{font-size:13px;padding-top:1px !important;}#gbar{height:22px}#guser{padding-bottom:7px !important;text-align:right}.gbh,.gbd{border-top:1px solid #c9d7f1;font-size:1px}.gbh{height:0;position:absolute;top:24px;width:100%}@media all{.gb1{height:22px;margin-right:.5em;vertical-align:top}#gbar{float:left}}a.gb1,a.gb4{text-decoration:underline !important}a.gb1,a.gb4{color:#00c !important}.gbi .gb4{color:#dd8e27 !important}.gbf .gb4{color:#900 !important}\n</style><style>body,td,a,p,.h{font-family:arial,sans-serif}body{margin:0;overflow-y:scroll}#gog{padding:3px 8px 0}td{line-height:.8em}.gac_m td{line-height:17px}form{margin-bottom:20px}.h{color:#36c}.q{color:#00c}.ts td{padding:0}.ts{border-collapse:collapse}em{font-weight:bold;font-style:normal}.lst{height:25px;width:496px}.gsfi,.lst{font:18px arial,sans-serif}.gsfs{font:17px arial,sans-serif}.ds{display:inline-box;display:inline-block;margin:3px 0 4px;margin-left:4px}input{font-family:inherit}a.gb1,a.gb2,a.gb3,a.gb4{color:#11c !important}body{background:#fff;color:black}a{color:#11c;text-decoration:none}a:hover,a:active{text-decoration:underline}.fl a{color:#36c}a:visited{color:#551a8b}a.gb1,a.gb4{text-decoration:underline}a.gb3:hover{text-decoration:none}#ghead a.gb2:hover{color:#fff !important}.sblc{padding-top:5px}.sblc a{display:block;margin:2px 0;margin-left:13px;font-size:11px}.lsbb{background:#eee;border:solid 1px;border-color:#ccc #999 #999 #ccc;height:30px}.lsbb{display:block}.ftl,#fll a{display:inline-block;margin:0 12px}.lsb{background:url(/images/nav_logo229.png) 0 -261px repeat-x;border:none;color:#000;cursor:pointer;height:30px;margin:0;outline:0;font:15px arial,sans-serif;vertical-align:top}.lsb:active{background:#ccc}.lst:focus{outline:none}</style><script nonce=\"UdFhWT22ef1+qw+3/MarkA==\"></script></head><body bgcolor=\"#fff\"><script nonce=\"UdFhWT22ef1+qw+3/MarkA==\">(function(){var src='/images/nav_logo229.png';var iesg=false;document.body.onload = function(){window.n && window.n();if (document.images){new Image().src=src;}\nif (!iesg){document.f&&document.f.q.focus();document.gbqf&&document.gbqf.q.focus();}\n}\n})();</script><div id=\"mngb\"> <div id=gbar><nobr><b class=gb1>Search</b> <a class=gb1 href=\"https://www.google.com/imghp?hl=en&tab=wi\">Images</a> <a class=gb1 href=\"https://maps.google.com/maps?hl=en&tab=wl\">Maps</a> <a class=gb1 href=\"https://play.google.com/?hl=en&tab=w8\">Play</a> <a class=gb1 href=\"https://www.youtube.com/?gl=US&tab=w1\">YouTube</a> <a class=gb1 href=\"https://news.google.com/nwshp?hl=en&tab=wn\">News</a> <a class=gb1 href=\"https://mail.google.com/mail/?tab=wm\">Gmail</a> <a class=gb1 href=\"https://drive.google.com/?tab=wo\">Drive</a> <a class=gb1 style=\"text-decoration:none\" href=\"https://www.google.com/intl/en/about/products?tab=wh\"><u>More</u> &raquo;</a></nobr></div><div id=guser width=100%><nobr><span id=gbn class=gbi></span><span id=gbf class=gbf></span><span id=gbe></span><a href=\"http://www.google.com/history/optout?hl=en\" class=gb4>Web History</a> | <a  href=\"/preferences?hl=en\" class=gb4>Settings</a> | <a target=_top id=gb_70 href=\"https://accounts.google.com/ServiceLogin?hl=en&passive=true&continue=https://www.google.com/\" class=gb4>Sign in</a></nobr></div><div class=gbh style=left:0></div><div class=gbh style=right:0></div> </div><center><br clear=\"all\" id=\"lgpd\"><div id=\"lga\"><img alt=\"Google\" height=\"92\" src=\"/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png\" style=\"padding:28px 0 14px\" width=\"272\" id=\"hplogo\" onload=\"window.lol&&lol()\"><br><br></div><form action=\"/search\" name=\"f\"><table cellpadding=\"0\" cellspacing=\"0\"><tr valign=\"top\"><td width=\"25%\">&nbsp;</td><td align=\"center\" nowrap=\"\"><input name=\"ie\" value=\"ISO-8859-1\" type=\"hidden\"><input value=\"en\" name=\"hl\" type=\"hidden\"><input name=\"source\" type=\"hidden\" value=\"hp\"><input name=\"biw\" type=\"hidden\"><input name=\"bih\" type=\"hidden\"><div class=\"ds\" style=\"height:32px;margin:4px 0\"><input style=\"color:#000;margin:0;padding:5px 8px 0 6px;vertical-align:top\" autocomplete=\"off\" class=\"lst\" value=\"\" title=\"Google Search\" maxlength=\"2048\" name=\"q\" size=\"57\"></div><br style=\"line-height:0\"><span class=\"ds\"><span class=\"lsbb\"><input class=\"lsb\" value=\"Google Search\" name=\"btnG\" type=\"submit\"></span></span><span class=\"ds\"><span class=\"lsbb\"><input class=\"lsb\" value=\"I'm Feeling Lucky\" name=\"btnI\" onclick=\"if(this.form.q.value)this.checked=1; else top.location='/doodles/'\" type=\"submit\"></span></span></td><td class=\"fl sblc\" align=\"left\" nowrap=\"\" width=\"25%\"><a href=\"/advanced_search?hl=en&amp;authuser=0\">Advanced search</a><a href=\"/language_tools?hl=en&amp;authuser=0\">Language tools</a></td></tr></table><input id=\"gbv\" name=\"gbv\" type=\"hidden\" value=\"1\"><script nonce=\"UdFhWT22ef1+qw+3/MarkA==\">(function(){var a,b=\"1\";if(document&&document.getElementById)if(\"undefined\"!=typeof XMLHttpRequest)b=\"2\";else if(\"undefined\"!=typeof ActiveXObject){var c,d,e=[\"MSXML2.XMLHTTP.6.0\",\"MSXML2.XMLHTTP.3.0\",\"MSXML2.XMLHTTP\",\"Microsoft.XMLHTTP\"];for(c=0;d=e[c++];)try{new ActiveXObject(d),b=\"2\"}catch(h){}}a=b;if(\"2\"==a&&-1==location.search.indexOf(\"&gbv=2\")){var f=google.gbvu,g=document.getElementById(\"gbv\");g&&(g.value=a);f&&window.setTimeout(function(){location.href=f},0)};}).call(this);</script></form><div id=\"gac_scont\"></div><div style=\"font-size:83%;min-height:3.5em\"><br></div><span id=\"footer\"><div style=\"font-size:10pt\"><div style=\"margin:19px auto;text-align:center\" id=\"fll\"><a href=\"/intl/en/ads/\">Advertising�Programs</a><a href=\"/services/\">Business Solutions</a><a href=\"https://plus.google.com/116899029375914044550\" rel=\"publisher\">+Google</a><a href=\"/intl/en/about.html\">About Google</a></div></div><p style=\"color:#767676;font-size:8pt\">&copy; 2018 - <a href=\"/intl/en/policies/privacy/\">Privacy</a> - <a href=\"/intl/en/policies/terms/\">Terms</a></p></span></center><script nonce=\"UdFhWT22ef1+qw+3/MarkA==\">(function(){window.google.cdo={height:0,width:0};(function(){var a=window.innerWidth,b=window.innerHeight;if(!a||!b){var c=window.document,d=\"CSS1Compat\"==c.compatMode?c.documentElement:c.body;a=d.clientWidth;b=d.clientHeight}a&&b&&(a!=google.cdo.width||b!=google.cdo.height)&&google.log(\"\",\"\",\"/client_204?&atyp=i&biw=\"+a+\"&bih=\"+b+\"&ei=\"+google.kEI);}).call(this);})();(function(){var u='/xjs/_/js/k\\x3dxjs.hp.en_US.KJ_Fnp06uxY.O/m\\x3dsb_he,d/am\\x3dYsAs/rt\\x3dj/d\\x3d1/rs\\x3dACT90oFlnOsP7wehn4pLfKxEh7BnTynqaQ';var b={gen204:\"xjsls\",clearcut:31};setTimeout(function(){var a=document.createElement(\"script\");a.src=u;google.timers&&google.timers.load&&google.tick&&google.tick(\"load\",b);document.body.appendChild(a)},0);})();(function(){window.google.xjsu='/xjs/_/js/k\\x3dxjs.hp.en_US.KJ_Fnp06uxY.O/m\\x3dsb_he,d/am\\x3dYsAs/rt\\x3dj/d\\x3d1/rs\\x3dACT90oFlnOsP7wehn4pLfKxEh7BnTynqaQ';})();function _DumpException(e){throw e;}\n(function(){var pmc='{\\x22Qnk92g\\x22:{},\\x22U5B21g\\x22:{},\\x22YFCs/g\\x22:{},\\x22ZI/YVQ\\x22:{},\\x22d\\x22:{},\\x22sb_he\\x22:{\\x22agen\\x22:true,\\x22cgen\\x22:true,\\x22client\\x22:\\x22heirloom-hp\\x22,\\x22dh\\x22:true,\\x22dhqt\\x22:true,\\x22ds\\x22:\\x22\\x22,\\x22ffql\\x22:\\x22en\\x22,\\x22fl\\x22:true,\\x22host\\x22:\\x22google.com\\x22,\\x22isbh\\x22:28,\\x22jsonp\\x22:true,\\x22msgs\\x22:{\\x22cibl\\x22:\\x22Clear Search\\x22,\\x22dym\\x22:\\x22Did you mean:\\x22,\\x22lcky\\x22:\\x22I\\\\u0026#39;m Feeling Lucky\\x22,\\x22lml\\x22:\\x22Learn more\\x22,\\x22oskt\\x22:\\x22Input tools\\x22,\\x22psrc\\x22:\\x22This search was removed from your \\\\u003Ca href\\x3d\\\\\\x22/history\\\\\\x22\\\\u003EWeb History\\\\u003C/a\\\\u003E\\x22,\\x22psrl\\x22:\\x22Remove\\x22,\\x22sbit\\x22:\\x22Search by image\\x22,\\x22srch\\x22:\\x22Google Search\\x22},\\x22ovr\\x22:{},\\x22pq\\x22:\\x22\\x22,\\x22refpd\\x22:true,\\x22rfs\\x22:[],\\x22sbpl\\x22:24,\\x22sbpr\\x22:24,\\x22scd\\x22:10,\\x22sce\\x22:5,\\x22stok\\x22:\\x22-BHBP11KyiVhbGQLoQHNONGKA0g\\x22,\\x22uhde\\x22:false}}';google.pmc=JSON.parse(pmc);})();(function(){var r=['aa','async','ipv6','mu','sf'];google.plm(r);})();</script>     </body></html>"
+rooms.core> (slurp "rooms.txt")
+"The Testing Room | This Room is an infinite blank white void. Near you in the void is a card table upon which sits a blank algebra test and two #2 pencils (exit d) | d % The Dawn of Time\nThe Dawn of Time | You are in a beautiful garden situated at the edge of a precipice. Over the Edge you can see the waters of a vast, dark ocean. Everything is completely still, and the waves do not move across the sea, but stand likewise suspended in place, waiting eternally poised to crash against the rocky shore. Out across the black waters you can see a tiny sliver of rising sun, burning golden orange with the light of a spectacular dawn (exit w) | w % The Architect's Workshop\nThe Architect's Workshop | You are in a smallish, cluttered workshop, various tools spill across the narrow worktable and hang along the walls. Some of the tools are familiar, but others are strange, and you can only guess at their purposes. Grey light streams in from a window set high in the wall, but you can't see anything but a cloudy sky through it (exit t) | t % The Testing Room\n"
+rooms.core> (slurp-rooms "rooms.txt")
+["The Testing Room | This Room is an infinite blank white void. Near you in the void is a card table upon which sits a blank algebra test and two #2 pencils (exit d) | d % The Dawn of Time" "The Dawn of Time | You are in a beautiful garden situated at the edge of a precipice. Over the Edge you can see the waters of a vast, dark ocean. Everything is completely still, and the waves do not move across the sea, but stand likewise suspended in place, waiting eternally poised to crash against the rocky shore. Out across the black waters you can see a tiny sliver of rising sun, burning golden orange with the light of a spectacular dawn (exit w) | w % The Architect's Workshop" "The Architect's Workshop | You are in a smallish, cluttered workshop, various tools spill across the narrow worktable and hang along the walls. Some of the tools are familiar, but others are strange, and you can only guess at their purposes. Grey light streams in from a window set high in the wall, but you can't see anything but a cloudy sky through it (exit t) | t % The Testing Room"]
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms [#" | " #" | " #" | "] )]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        split_rooms))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (slurp-rooms "rooms.txt")
+[["The" "Testing" "Room" "|" "This" "Room" "is" "an" "infinite" "blank" "white" "void." "Near" "you" "in" "the" "void" "is" "a" "card" "table" "upon" "which" "sits" "a" "blank" "algebra" "test" "and" "two" "#2" "pencils" "(exit" "d)" "|" "d" "%" "The" "Dawn" "of" "Time"] ["The" "Dawn" "of" "Time" "|" "You" "are" "in" "a" "beautiful" "garden" "situated" "at" "the" "edge" "of" "a" "precipice." "Over" "the" "Edge" "you" "can" "see" "the" "waters" "of" "a" "vast," "dark" "ocean." "Everything" "is" "completely" "still," "and" "the" "waves" "do" "not" "move" "across" "the" "sea," "but" "stand" "likewise" "suspended" "in" "place," "waiting" "eternally" "poised" "to" "crash" "against" "the" "rocky" "shore." "Out" "across" "the" "black" "waters" "you" "can" "see" "a" "tiny" "sliver" "of" "rising" "sun," "burning" "golden" "orange" "with" "the" "light" "of" "a" "spectacular" "dawn" "(exit" "w)" "|" "w" "%" "The" "Architect's" "Workshop"] ["The" "Architect's" "Workshop" "|" "You" "are" "in" "a" "smallish," "cluttered" "workshop," "various" "tools" "spill" "across" "the" "narrow" "worktable" "and" "hang" "along" "the" "walls." "Some" "of" "the" "tools" "are" "familiar," "but" "others" "are" "strange," "and" "you" "can" "only" "guess" "at" "their" "purposes." "Grey" "light" "streams" "in" "from" "a" "window" "set" "high" "in" "the" "wall," "but" "you" "can't" "see" "anything" "but" "a" "cloudy" "sky" "through" "it" "(exit" "t)" "|" "t" "%" "The" "Testing" "Room"]]
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms [#"|" #"|" #"|"] )]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        split_rooms))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (slurp-rooms "rooms.txt")
+[["T" "h" "e" " " "T" "e" "s" "t" "i" "n" "g" " " "R" "o" "o" "m" " " "|" " " "T" "h" "i" "s" " " "R" "o" "o" "m" " " "i" "s" " " "a" "n" " " "i" "n" "f" "i" "n" "i" "t" "e" " " "b" "l" "a" "n" "k" " " "w" "h" "i" "t" "e" " " "v" "o" "i" "d" "." " " "N" "e" "a" "r" " " "y" "o" "u" " " "i" "n" " " "t" "h" "e" " " "v" "o" "i" "d" " " "i" "s" " " "a" " " "c" "a" "r" "d" " " "t" "a" "b" "l" "e" " " "u" "p" "o" "n" " " "w" "h" "i" "c" "h" " " "s" "i" "t" "s" " " "a" " " "b" "l" "a" "n" "k" " " "a" "l" "g" "e" "b" "r" "a" " " "t" "e" "s" "t" " " "a" "n" "d" " " "t" "w" "o" " " "#" "2" " " "p" "e" "n" "c" "i" "l" "s" " " "(" "e" "x" "i" "t" " " "d" ")" " " "|" " " "d" " " "%" " " "T" "h" "e" " " "D" "a" "w" "n" " " "o" "f" " " "T" "i" "m" "e"] ["T" "h" "e" " " "D" "a" "w" "n" " " "o" "f" " " "T" "i" "m" "e" " " "|" " " "Y" "o" "u" " " "a" "r" "e" " " "i" "n" " " "a" " " "b" "e" "a" "u" "t" "i" "f" "u" "l" " " "g" "a" "r" "d" "e" "n" " " "s" "i" "t" "u" "a" "t" "e" "d" " " "a" "t" " " "t" "h" "e" " " "e" "d" "g" "e" " " "o" "f" " " "a" " " "p" "r" "e" "c" "i" "p" "i" "c" "e" "." " " "O" "v" "e" "r" " " "t" "h" "e" " " "E" "d" "g" "e" " " "y" "o" "u" " " "c" "a" "n" " " "s" "e" "e" " " "t" "h" "e" " " "w" "a" "t" "e" "r" "s" " " "o" "f" " " "a" " " "v" "a" "s" "t" "," " " "d" "a" "r" "k" " " "o" "c" "e" "a" "n" "." " " "E" "v" "e" "r" "y" "t" "h" "i" "n" "g" " " "i" "s" " " "c" "o" "m" "p" "l" "e" "t" "e" "l" "y" " " "s" "t" "i" "l" "l" "," " " "a" "n" "d" " " "t" "h" "e" " " "w" "a" "v" "e" "s" " " "d" "o" " " "n" "o" "t" " " "m" "o" "v" "e" " " "a" "c" "r" "o" "s" "s" " " "t" "h" "e" " " "s" "e" "a" "," " " "b" "u" "t" " " "s" "t" "a" "n" "d" " " "l" "i" "k" "e" "w" "i" "s" "e" " " "s" "u" "s" "p" "e" "n" "d" "e" "d" " " "i" "n" " " "p" "l" "a" "c" "e" "," " " "w" "a" "i" "t" "i" "n" "g" " " "e" "t" "e" "r" "n" "a" "l" "l" "y" " " "p" "o" "i" "s" "e" "d" " " "t" "o" " " "c" "r" "a" "s" "h" " " "a" "g" "a" "i" "n" "s" "t" " " "t" "h" "e" " " "r" "o" "c" "k" "y" " " "s" "h" "o" "r" "e" "." " " "O" "u" "t" " " "a" "c" "r" "o" "s" "s" " " "t" "h" "e" " " "b" "l" "a" "c" "k" " " "w" "a" "t" "e" "r" "s" " " "y" "o" "u" " " "c" "a" "n" " " "s" "e" "e" " " "a" " " "t" "i" "n" "y" " " "s" "l" "i" "v" "e" "r" " " "o" "f" " " "r" "i" "s" "i" "n" "g" " " "s" "u" "n" "," " " "b" "u" "r" "n" "i" "n" "g" " " "g" "o" "l" "d" "e" "n" " " "o" "r" "a" "n" "g" "e" " " "w" "i" "t" "h" " " "t" "h" "e" " " "l" "i" "g" "h" "t" " " "o" "f" " " "a" " " "s" "p" "e" "c" "t" "a" "c" "u" "l" "a" "r" " " "d" "a" "w" "n" " " "(" "e" "x" "i" "t" " " "w" ")" " " "|" " " "w" " " "%" " " "T" "h" "e" " " "A" "r" "c" "h" "i" "t" "e" "c" "t" "'" "s" " " "W" "o" "r" "k" "s" "h" "o" "p"] ["T" "h" "e" " " "A" "r" "c" "h" "i" "t" "e" "c" "t" "'" "s" " " "W" "o" "r" "k" "s" "h" "o" "p" " " "|" " " "Y" "o" "u" " " "a" "r" "e" " " "i" "n" " " "a" " " "s" "m" "a" "l" "l" "i" "s" "h" "," " " "c" "l" "u" "t" "t" "e" "r" "e" "d" " " "w" "o" "r" "k" "s" "h" "o" "p" "," " " "v" "a" "r" "i" "o" "u" "s" " " "t" "o" "o" "l" "s" " " "s" "p" "i" "l" "l" " " "a" "c" "r" "o" "s" "s" " " "t" "h" "e" " " "n" "a" "r" "r" "o" "w" " " "w" "o" "r" "k" "t" "a" "b" "l" "e" " " "a" "n" "d" " " "h" "a" "n" "g" " " "a" "l" "o" "n" "g" " " "t" "h" "e" " " "w" "a" "l" "l" "s" "." " " "S" "o" "m" "e" " " "o" "f" " " "t" "h" "e" " " "t" "o" "o" "l" "s" " " "a" "r" "e" " " "f" "a" "m" "i" "l" "i" "a" "r" "," " " "b" "u" "t" " " "o" "t" "h" "e" "r" "s" " " "a" "r" "e" " " "s" "t" "r" "a" "n" "g" "e" "," " " "a" "n" "d" " " "y" "o" "u" " " "c" "a" "n" " " "o" "n" "l" "y" " " "g" "u" "e" "s" "s" " " "a" "t" " " "t" "h" "e" "i" "r" " " "p" "u" "r" "p" "o" "s" "e" "s" "." " " "G" "r" "e" "y" " " "l" "i" "g" "h" "t" " " "s" "t" "r" "e" "a" "m" "s" " " "i" "n" " " "f" "r" "o" "m" " " "a" " " "w" "i" "n" "d" "o" "w" " " "s" "e" "t" " " "h" "i" "g" "h" " " "i" "n" " " "t" "h" "e" " " "w" "a" "l" "l" "," " " "b" "u" "t" " " "y" "o" "u" " " "c" "a" "n" "'" "t" " " "s" "e" "e" " " "a" "n" "y" "t" "h" "i" "n" "g" " " "b" "u" "t" " " "a" " " "c" "l" "o" "u" "d" "y" " " "s" "k" "y" " " "t" "h" "r" "o" "u" "g" "h" " " "i" "t" " " "(" "e" "x" "i" "t" " " "t" ")" " " "|" " " "t" " " "%" " " "T" "h" "e" " " "T" "e" "s" "t" "i" "n" "g" " " "R" "o" "o" "m"]]
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms #"|" )]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        split_rooms))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (slurp-rooms "rooms.txt")
+IllegalArgumentException Don't know how to create ISeq from: java.util.regex.Pattern  clojure.lang.RT.seqFrom (RT.java:542)
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms (seq #"|") )]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        split_rooms))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (slurp-rooms "rooms.txt")
+IllegalArgumentException Don't know how to create ISeq from: java.util.regex.Pattern  clojure.lang.RT.seqFrom (RT.java:542)
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms (lazy-seq #"|") )]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        split_rooms))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (slurp-rooms "rooms.txt")
+IllegalArgumentException Don't know how to create ISeq from: java.util.regex.Pattern  clojure.lang.RT.seqFrom (RT.java:542)
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms (lazy-seq (fn []  #"|")) )]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        split_rooms))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms (lazy-seq #"|") )]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        split_rooms))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (slurp-rooms "rooms.txt")
+IllegalArgumentException Don't know how to create ISeq from: java.util.regex.Pattern  clojure.lang.RT.seqFrom (RT.java:542)
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms (repeatedly #(" | ")))]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        split_rooms))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (slurp-rooms "rooms.txt")
+ClassCastException java.lang.String cannot be cast to clojure.lang.IFn  rooms.core/slurp-rooms/fn--1287 (form-init8587648423529127912.clj:4)
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms (repeatedly #" | "))]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        split_rooms))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (slurp-rooms "rooms.txt")
+ClassCastException java.util.regex.Pattern cannot be cast to clojure.lang.IFn  clojure.core/repeatedly/fn--5339 (core.clj:4945)
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms raw_rooms]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        split_rooms))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (slurp-rooms "rooms.txt")
+["The Testing Room | This Room is an infinite blank white void. Near you in the void is a card table upon which sits a blank algebra test and two #2 pencils (exit d) | d % The Dawn of Time" "The Dawn of Time | You are in a beautiful garden situated at the edge of a precipice. Over the Edge you can see the waters of a vast, dark ocean. Everything is completely still, and the waves do not move across the sea, but stand likewise suspended in place, waiting eternally poised to crash against the rocky shore. Out across the black waters you can see a tiny sliver of rising sun, burning golden orange with the light of a spectacular dawn (exit w) | w % The Architect's Workshop" "The Architect's Workshop | You are in a smallish, cluttered workshop, various tools spill across the narrow worktable and hang along the walls. Some of the tools are familiar, but others are strange, and you can only guess at their purposes. Grey light streams in from a window set high in the wall, but you can't see anything but a cloudy sky through it (exit t) | t % The Testing Room"]
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms [#"|" #"|" #"|"])]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        split_rooms))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (slurp-rooms "rooms.txt")
+[["T" "h" "e" " " "T" "e" "s" "t" "i" "n" "g" " " "R" "o" "o" "m" " " "|" " " "T" "h" "i" "s" " " "R" "o" "o" "m" " " "i" "s" " " "a" "n" " " "i" "n" "f" "i" "n" "i" "t" "e" " " "b" "l" "a" "n" "k" " " "w" "h" "i" "t" "e" " " "v" "o" "i" "d" "." " " "N" "e" "a" "r" " " "y" "o" "u" " " "i" "n" " " "t" "h" "e" " " "v" "o" "i" "d" " " "i" "s" " " "a" " " "c" "a" "r" "d" " " "t" "a" "b" "l" "e" " " "u" "p" "o" "n" " " "w" "h" "i" "c" "h" " " "s" "i" "t" "s" " " "a" " " "b" "l" "a" "n" "k" " " "a" "l" "g" "e" "b" "r" "a" " " "t" "e" "s" "t" " " "a" "n" "d" " " "t" "w" "o" " " "#" "2" " " "p" "e" "n" "c" "i" "l" "s" " " "(" "e" "x" "i" "t" " " "d" ")" " " "|" " " "d" " " "%" " " "T" "h" "e" " " "D" "a" "w" "n" " " "o" "f" " " "T" "i" "m" "e"] ["T" "h" "e" " " "D" "a" "w" "n" " " "o" "f" " " "T" "i" "m" "e" " " "|" " " "Y" "o" "u" " " "a" "r" "e" " " "i" "n" " " "a" " " "b" "e" "a" "u" "t" "i" "f" "u" "l" " " "g" "a" "r" "d" "e" "n" " " "s" "i" "t" "u" "a" "t" "e" "d" " " "a" "t" " " "t" "h" "e" " " "e" "d" "g" "e" " " "o" "f" " " "a" " " "p" "r" "e" "c" "i" "p" "i" "c" "e" "." " " "O" "v" "e" "r" " " "t" "h" "e" " " "E" "d" "g" "e" " " "y" "o" "u" " " "c" "a" "n" " " "s" "e" "e" " " "t" "h" "e" " " "w" "a" "t" "e" "r" "s" " " "o" "f" " " "a" " " "v" "a" "s" "t" "," " " "d" "a" "r" "k" " " "o" "c" "e" "a" "n" "." " " "E" "v" "e" "r" "y" "t" "h" "i" "n" "g" " " "i" "s" " " "c" "o" "m" "p" "l" "e" "t" "e" "l" "y" " " "s" "t" "i" "l" "l" "," " " "a" "n" "d" " " "t" "h" "e" " " "w" "a" "v" "e" "s" " " "d" "o" " " "n" "o" "t" " " "m" "o" "v" "e" " " "a" "c" "r" "o" "s" "s" " " "t" "h" "e" " " "s" "e" "a" "," " " "b" "u" "t" " " "s" "t" "a" "n" "d" " " "l" "i" "k" "e" "w" "i" "s" "e" " " "s" "u" "s" "p" "e" "n" "d" "e" "d" " " "i" "n" " " "p" "l" "a" "c" "e" "," " " "w" "a" "i" "t" "i" "n" "g" " " "e" "t" "e" "r" "n" "a" "l" "l" "y" " " "p" "o" "i" "s" "e" "d" " " "t" "o" " " "c" "r" "a" "s" "h" " " "a" "g" "a" "i" "n" "s" "t" " " "t" "h" "e" " " "r" "o" "c" "k" "y" " " "s" "h" "o" "r" "e" "." " " "O" "u" "t" " " "a" "c" "r" "o" "s" "s" " " "t" "h" "e" " " "b" "l" "a" "c" "k" " " "w" "a" "t" "e" "r" "s" " " "y" "o" "u" " " "c" "a" "n" " " "s" "e" "e" " " "a" " " "t" "i" "n" "y" " " "s" "l" "i" "v" "e" "r" " " "o" "f" " " "r" "i" "s" "i" "n" "g" " " "s" "u" "n" "," " " "b" "u" "r" "n" "i" "n" "g" " " "g" "o" "l" "d" "e" "n" " " "o" "r" "a" "n" "g" "e" " " "w" "i" "t" "h" " " "t" "h" "e" " " "l" "i" "g" "h" "t" " " "o" "f" " " "a" " " "s" "p" "e" "c" "t" "a" "c" "u" "l" "a" "r" " " "d" "a" "w" "n" " " "(" "e" "x" "i" "t" " " "w" ")" " " "|" " " "w" " " "%" " " "T" "h" "e" " " "A" "r" "c" "h" "i" "t" "e" "c" "t" "'" "s" " " "W" "o" "r" "k" "s" "h" "o" "p"] ["T" "h" "e" " " "A" "r" "c" "h" "i" "t" "e" "c" "t" "'" "s" " " "W" "o" "r" "k" "s" "h" "o" "p" " " "|" " " "Y" "o" "u" " " "a" "r" "e" " " "i" "n" " " "a" " " "s" "m" "a" "l" "l" "i" "s" "h" "," " " "c" "l" "u" "t" "t" "e" "r" "e" "d" " " "w" "o" "r" "k" "s" "h" "o" "p" "," " " "v" "a" "r" "i" "o" "u" "s" " " "t" "o" "o" "l" "s" " " "s" "p" "i" "l" "l" " " "a" "c" "r" "o" "s" "s" " " "t" "h" "e" " " "n" "a" "r" "r" "o" "w" " " "w" "o" "r" "k" "t" "a" "b" "l" "e" " " "a" "n" "d" " " "h" "a" "n" "g" " " "a" "l" "o" "n" "g" " " "t" "h" "e" " " "w" "a" "l" "l" "s" "." " " "S" "o" "m" "e" " " "o" "f" " " "t" "h" "e" " " "t" "o" "o" "l" "s" " " "a" "r" "e" " " "f" "a" "m" "i" "l" "i" "a" "r" "," " " "b" "u" "t" " " "o" "t" "h" "e" "r" "s" " " "a" "r" "e" " " "s" "t" "r" "a" "n" "g" "e" "," " " "a" "n" "d" " " "y" "o" "u" " " "c" "a" "n" " " "o" "n" "l" "y" " " "g" "u" "e" "s" "s" " " "a" "t" " " "t" "h" "e" "i" "r" " " "p" "u" "r" "p" "o" "s" "e" "s" "." " " "G" "r" "e" "y" " " "l" "i" "g" "h" "t" " " "s" "t" "r" "e" "a" "m" "s" " " "i" "n" " " "f" "r" "o" "m" " " "a" " " "w" "i" "n" "d" "o" "w" " " "s" "e" "t" " " "h" "i" "g" "h" " " "i" "n" " " "t" "h" "e" " " "w" "a" "l" "l" "," " " "b" "u" "t" " " "y" "o" "u" " " "c" "a" "n" "'" "t" " " "s" "e" "e" " " "a" "n" "y" "t" "h" "i" "n" "g" " " "b" "u" "t" " " "a" " " "c" "l" "o" "u" "d" "y" " " "s" "k" "y" " " "t" "h" "r" "o" "u" "g" "h" " " "i" "t" " " "(" "e" "x" "i" "t" " " "t" ")" " " "|" " " "t" " " "%" " " "T" "h" "e" " " "T" "e" "s" "t" "i" "n" "g" " " "R" "o" "o" "m"]]
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms [#"\|" #"\|" #"\|"])]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        split_rooms))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (slurp-rooms "rooms.txt")
+[["The Testing Room " " This Room is an infinite blank white void. Near you in the void is a card table upon which sits a blank algebra test and two #2 pencils (exit d) " " d % The Dawn of Time"] ["The Dawn of Time " " You are in a beautiful garden situated at the edge of a precipice. Over the Edge you can see the waters of a vast, dark ocean. Everything is completely still, and the waves do not move across the sea, but stand likewise suspended in place, waiting eternally poised to crash against the rocky shore. Out across the black waters you can see a tiny sliver of rising sun, burning golden orange with the light of a spectacular dawn (exit w) " " w % The Architect's Workshop"] ["The Architect's Workshop " " You are in a smallish, cluttered workshop, various tools spill across the narrow worktable and hang along the walls. Some of the tools are familiar, but others are strange, and you can only guess at their purposes. Grey light streams in from a window set high in the wall, but you can't see anything but a cloudy sky through it (exit t) " " t % The Testing Room"]]
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms (repeatedly (fn [] #"\|")))]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        split_rooms))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (slurp-rooms "rooms.txt")
+[["The Testing Room " " This Room is an infinite blank white void. Near you in the void is a card table upon which sits a blank algebra test and two #2 pencils (exit d) " " d % The Dawn of Time"] ["The Dawn of Time " " You are in a beautiful garden situated at the edge of a precipice. Over the Edge you can see the waters of a vast, dark ocean. Everything is completely still, and the waves do not move across the sea, but stand likewise suspended in place, waiting eternally poised to crash against the rocky shore. Out across the black waters you can see a tiny sliver of rising sun, burning golden orange with the light of a spectacular dawn (exit w) " " w % The Architect's Workshop"] ["The Architect's Workshop " " You are in a smallish, cluttered workshop, various tools spill across the narrow worktable and hang along the walls. Some of the tools are familiar, but others are strange, and you can only guess at their purposes. Grey light streams in from a window set high in the wall, but you can't see anything but a cloudy sky through it (exit t) " " t % The Testing Room"]]
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms (repeatedly (fn [] #"\|")))]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        split_exits))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (slurp-rooms "rooms.txt")
+[#" % " #" % " #" % "]
+rooms.core> (slurp-rooms "rooms.txt")
+[#" % " #" % " #" % "]
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms (repeatedly (fn [] #"\|")))]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        split_rooms))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (def split-rooms (slurp-rooms "rooms.txt"))
+#'rooms.core/split-rooms
+rooms.core> split-rooms
+[["The Testing Room " " This Room is an infinite blank white void. Near you in the void is a card table upon which sits a blank algebra test and two #2 pencils (exit d) " " d % The Dawn of Time"] ["The Dawn of Time " " You are in a beautiful garden situated at the edge of a precipice. Over the Edge you can see the waters of a vast, dark ocean. Everything is completely still, and the waves do not move across the sea, but stand likewise suspended in place, waiting eternally poised to crash against the rocky shore. Out across the black waters you can see a tiny sliver of rising sun, burning golden orange with the light of a spectacular dawn (exit w) " " w % The Architect's Workshop"] ["The Architect's Workshop " " You are in a smallish, cluttered workshop, various tools spill across the narrow worktable and hang along the walls. Some of the tools are familiar, but others are strange, and you can only guess at their purposes. Grey light streams in from a window set high in the wall, but you can't see anything but a cloudy sky through it (exit t) " " t % The Testing Room"]]
+rooms.core> (defn exit-splitter [invec]
+              (let [exits (nth invec 2)]
+                (clojure.string/split exits #" % ")))
+#'rooms.core/exit-splitter
+rooms.core> (exit-splitter (peek split-rooms))
+[" t" "The Testing Room"]
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms (repeatedly (fn [] #"\|")))]
+      (let [split_exits (mapv exit-splitter (peek split_rooms))]
+        split_rooms))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms (repeatedly (fn [] #"\|")))]
+      (let [split_exits (mapv exit-splitter (peek split_rooms))]
+        split_exits))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (slurp-rooms "rooms.txt")
+ClassCastException java.lang.Character cannot be cast to java.lang.CharSequence  clojure.string/split (string.clj:219)
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms (repeatedly (fn [] #"\|")))]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        split_exits))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (slurp-rooms "rooms.txt")
+[[" d" "The Dawn of Time"] [" w" "The Architect's Workshop"] [" t" "The Testing Room"]]
+rooms.core> (slurp-rooms "rooms.txt")
+[[" d" "The Dawn of Time"] [" w" "The Architect's Workshop"] [" t" "The Testing Room"]]
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms (repeatedly (fn [] #"\|")))]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        '(raw_rooms split_rooms split_exits)))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (slurp-rooms "rooms.txt")
+(raw_rooms split_rooms split_exits)
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms (repeatedly (fn [] #"\|")))]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        (raw_rooms split_rooms split_exits)))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (slurp-rooms "rooms.txt")
+ArityException Wrong number of args (2) passed to: PersistentVector  clojure.lang.AFn.throwArity (AFn.java:429)
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms (repeatedly (fn [] #"\|")))]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        (list raw_rooms split_rooms split_exits)))))
+
+#'rooms.core/slurp-rooms
+rooms.core> (slurp-rooms "rooms.txt")
+(["The Testing Room | This Room is an infinite blank white void. Near you in the void is a card table upon which sits a blank algebra test and two #2 pencils (exit d) | d % The Dawn of Time" "The Dawn of Time | You are in a beautiful garden situated at the edge of a precipice. Over the Edge you can see the waters of a vast, dark ocean. Everything is completely still, and the waves do not move across the sea, but stand likewise suspended in place, waiting eternally poised to crash against the rocky shore. Out across the black waters you can see a tiny sliver of rising sun, burning golden orange with the light of a spectacular dawn (exit w) | w % The Architect's Workshop" "The Architect's Workshop | You are in a smallish, cluttered workshop, various tools spill across the narrow worktable and hang along the walls. Some of the tools are familiar, but others are strange, and you can only guess at their purposes. Grey light streams in from a window set high in the wall, but you can't see anything but a cloudy sky through it (exit t) | t % The Testing Room"] [["The Testing Room " " This Room is an infinite blank white void. Near you in the void is a card table upon which sits a blank algebra test and two #2 pencils (exit d) " " d % The Dawn of Time"] ["The Dawn of Time " " You are in a beautiful garden situated at the edge of a precipice. Over the Edge you can see the waters of a vast, dark ocean. Everything is completely still, and the waves do not move across the sea, but stand likewise suspended in place, waiting eternally poised to crash against the rocky shore. Out across the black waters you can see a tiny sliver of rising sun, burning golden orange with the light of a spectacular dawn (exit w) " " w % The Architect's Workshop"] ["The Architect's Workshop " " You are in a smallish, cluttered workshop, various tools spill across the narrow worktable and hang along the walls. Some of the tools are familiar, but others are strange, and you can only guess at their purposes. Grey light streams in from a window set high in the wall, but you can't see anything but a cloudy sky through it (exit t) " " t % The Testing Room"]] [[" d" "The Dawn of Time"] [" w" "The Architect's Workshop"] [" t" "The Testing Room"]])
+rooms.core> (slurp-rooms "rooms.txt")
+(["The Testing Room | This Room is an infinite blank white void. Near you in the void is a card table upon which sits a blank algebra test and two #2 pencils (exit d) | d % The Dawn of Time" "The Dawn of Time | You are in a beautiful garden situated at the edge of a precipice. Over the Edge you can see the waters of a vast, dark ocean. Everything is completely still, and the waves do not move across the sea, but stand likewise suspended in place, waiting eternally poised to crash against the rocky shore. Out across the black waters you can see a tiny sliver of rising sun, burning golden orange with the light of a spectacular dawn (exit w) | w % The Architect's Workshop" "The Architect's Workshop | You are in a smallish, cluttered workshop, various tools spill across the narrow worktable and hang along the walls. Some of the tools are familiar, but others are strange, and you can only guess at their purposes. Grey light streams in from a window set high in the wall, but you can't see anything but a cloudy sky through it (exit t) | t % The Testing Room"] [["The Testing Room " " This Room is an infinite blank white void. Near you in the void is a card table upon which sits a blank algebra test and two #2 pencils (exit d) " " d % The Dawn of Time"] ["The Dawn of Time " " You are in a beautiful garden situated at the edge of a precipice. Over the Edge you can see the waters of a vast, dark ocean. Everything is completely still, and the waves do not move across the sea, but stand likewise suspended in place, waiting eternally poised to crash against the rocky shore. Out across the black waters you can see a tiny sliver of rising sun, burning golden orange with the light of a spectacular dawn (exit w) " " w % The Architect's Workshop"] ["The Architect's Workshop " " You are in a smallish, cluttered workshop, various tools spill across the narrow worktable and hang along the walls. Some of the tools are familiar, but others are strange, and you can only guess at their purposes. Grey light streams in from a window set high in the wall, but you can't see anything but a cloudy sky through it (exit t) " " t % The Testing Room"]] [[" d" "The Dawn of Time"] [" w" "The Architect's Workshop"] [" t" "The Testing Room"]])
+rooms.core> (defn exit-splitter [invec]
+              (let [exits (nth invec 2)]
+                [(first invec) (nth invec 1) (clojure.string/split exits #" % ")]))
+#'rooms.core/exit-splitter
+rooms.core> (slurp-rooms "rooms.txt")
+(["The Testing Room | This Room is an infinite blank white void. Near you in the void is a card table upon which sits a blank algebra test and two #2 pencils (exit d) | d % The Dawn of Time" "The Dawn of Time | You are in a beautiful garden situated at the edge of a precipice. Over the Edge you can see the waters of a vast, dark ocean. Everything is completely still, and the waves do not move across the sea, but stand likewise suspended in place, waiting eternally poised to crash against the rocky shore. Out across the black waters you can see a tiny sliver of rising sun, burning golden orange with the light of a spectacular dawn (exit w) | w % The Architect's Workshop" "The Architect's Workshop | You are in a smallish, cluttered workshop, various tools spill across the narrow worktable and hang along the walls. Some of the tools are familiar, but others are strange, and you can only guess at their purposes. Grey light streams in from a window set high in the wall, but you can't see anything but a cloudy sky through it (exit t) | t % The Testing Room"] [["The Testing Room " " This Room is an infinite blank white void. Near you in the void is a card table upon which sits a blank algebra test and two #2 pencils (exit d) " " d % The Dawn of Time"] ["The Dawn of Time " " You are in a beautiful garden situated at the edge of a precipice. Over the Edge you can see the waters of a vast, dark ocean. Everything is completely still, and the waves do not move across the sea, but stand likewise suspended in place, waiting eternally poised to crash against the rocky shore. Out across the black waters you can see a tiny sliver of rising sun, burning golden orange with the light of a spectacular dawn (exit w) " " w % The Architect's Workshop"] ["The Architect's Workshop " " You are in a smallish, cluttered workshop, various tools spill across the narrow worktable and hang along the walls. Some of the tools are familiar, but others are strange, and you can only guess at their purposes. Grey light streams in from a window set high in the wall, but you can't see anything but a cloudy sky through it (exit t) " " t % The Testing Room"]] [["The Testing Room " " This Room is an infinite blank white void. Near you in the void is a card table upon which sits a blank algebra test and two #2 pencils (exit d) " [" d" "The Dawn of Time"]] ["The Dawn of Time " " You are in a beautiful garden situated at the edge of a precipice. Over the Edge you can see the waters of a vast, dark ocean. Everything is completely still, and the waves do not move across the sea, but stand likewise suspended in place, waiting eternally poised to crash against the rocky shore. Out across the black waters you can see a tiny sliver of rising sun, burning golden orange with the light of a spectacular dawn (exit w) " [" w" "The Architect's Workshop"]] ["The Architect's Workshop " " You are in a smallish, cluttered workshop, various tools spill across the narrow worktable and hang along the walls. Some of the tools are familiar, but others are strange, and you can only guess at their purposes. Grey light streams in from a window set high in the wall, but you can't see anything but a cloudy sky through it (exit t) " [" t" "The Testing Room"]]])
+rooms.core> (defn slurp-rooms [input_file]
+  (comment "FINISH ME")
+  (let [raw_rooms (clojure.string/split-lines (slurp input_file))]
+    (let [split_rooms (mapv clojure.string/split raw_rooms (repeatedly (fn [] #"\|")))]
+      (let [split_exits (mapv exit-splitter split_rooms)]
+        split_exits))))
