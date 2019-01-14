@@ -1,5 +1,5 @@
 (defproject rooms "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
+  :description "A little text based adventure platform. Not many features (yet :) )"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
